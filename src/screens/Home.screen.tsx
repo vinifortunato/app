@@ -1,8 +1,10 @@
+
+import { useAppSelector } from '@src/hooks';
+import { userActions } from '@store/user';
+import { User } from '@store/user/user.types';
 import { useCallback } from 'react';
 import { Button, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { useAppSelector } from '../hooks';
-import { userActions } from '../store/user';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -11,9 +13,10 @@ const HomeScreen = () => {
   console.log(state);
 
   const onButtonPress = useCallback(() => {
-    const user = {
+    const user: User = {
       name: 'Vinicius'
     };
+
     dispatch(userActions.setUser(user));
   }, []);
 
@@ -23,7 +26,6 @@ const HomeScreen = () => {
       <Button
         onPress={onButtonPress}
         title="Learn More"
-        color="#841584"
         accessibilityLabel="Learn more about this purple button"
       />
 		</View>
