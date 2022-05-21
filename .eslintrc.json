@@ -22,7 +22,6 @@
 		"@typescript-eslint"
 	],
 	"rules": {
-		"indent": ["error", "space"],
 		"linebreak-style": "off",
 		"quotes": ["error", "single"],
 		"semi": ["error", "always"],
