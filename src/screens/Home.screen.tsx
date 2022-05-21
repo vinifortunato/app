@@ -1,20 +1,29 @@
 
 import { useAppSelector } from '@src/hooks';
+import { AppState } from '@store/store.types';
 import { userActions } from '@store/user';
 import { User } from '@store/user/user.types';
 import { useCallback } from 'react';
-import { Button, Text, View } from 'react-native';
+import { Controller, useForm } from 'react-hook-form';
+import { Button, Text, TextInput, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
 
-  const state = useAppSelector((state) => state.user);
-  console.log(state);
+  const user: User | null = useAppSelector<User| null>((state: AppState) => state.user);
 
-  const onButtonPress = useCallback(() => {
+  const { handleSubmit, control } = useForm({
+    defaultValues: {
+      name: 'Vinicius',
+    }
+  });
+
+  const onSubmit = useCallback((data) => {
+    console.log(data);
+
     const user: User = {
-      name: 'Vinicius'
+      name: data.name
     };
 
     dispatch(userActions.setUser(user));
@@ -22,12 +31,20 @@ const HomeScreen = () => {
 
 	return (
 		<View>
-			<Text>Home Screen</Text>
-      <Button
-        onPress={onButtonPress}
-        title="Learn More"
-        accessibilityLabel="Learn more about this purple button"
-      />
+      {user ? (
+        <Text>{`Hello ${user.name}!`}</Text>
+      ) : (
+        <View>
+          <Text>Welcome!</Text>
+          <Controller
+            name="name"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => <TextInput {...field} />}
+          />
+          <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+        </View>
+      )}
 		</View>
 	);
 };

@@ -2,4 +2,4 @@ export type User = {
   name: string;
 }
 
-export type UserState = User | null;
+export type UserState = User | undefined;
