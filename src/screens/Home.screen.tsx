@@ -44,7 +44,7 @@ const HomeScreen = ({ navigation }: ScreenProps) => {
       <ScreenStyles.Container>
         {user ? (
           <View>
-            <Text>{`Hello ${user.name}!`}</Text>
+            <Text>{`Olá ${user.name}!`}</Text>
             <Button
               title="Minha conta"
               onPress={handleMyAccountClick}
@@ -56,7 +56,7 @@ const HomeScreen = ({ navigation }: ScreenProps) => {
           </View>
         ) : (
           <View>
-            <Text>Welcome!</Text>
+            <Text>Olá, como devemos chamá-lo?</Text>
             <Controller
               name="name"
               control={control}

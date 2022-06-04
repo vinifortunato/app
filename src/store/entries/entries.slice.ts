@@ -11,6 +11,9 @@ const entriesSlice = createSlice({
       const entry = action.payload;
       entry.id = state.length;
       return [...state, entry];
+    },
+    set: (state, action) => {
+      return action.payload;
     }
   }
 });

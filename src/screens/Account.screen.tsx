@@ -31,7 +31,7 @@ const AccountScreen = () => {
 	return (
 		<ScreenStyles.Wrapper>
       <ScreenStyles.Container>
-        <Text>Account</Text>
+        <Text>Minha Conta</Text>
         <Controller
           name="name"
           control={control}
