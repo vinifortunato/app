@@ -1,6 +1,7 @@
 
 
 import { useAppSelector } from '@src/hooks';
+import { ScreenStyles } from '@src/styles';
 import { AppState } from '@store/store.types';
 import { userActions } from '@store/user';
 import { User } from '@store/user/user.types';
@@ -28,36 +29,46 @@ const HomeScreen = ({ navigation }: ScreenProps) => {
       name: data.name
     };
 
-    dispatch(userActions.setUser(user));
+    dispatch(userActions.set(user));
   }, []);
 
   const handleMyAccountClick = useCallback(() => {
     navigation.navigate('Account');
   }, [navigation]);
 
+  const handleEntriesClick = useCallback(() => {
+    navigation.navigate('Entries');
+  }, [navigation]);
+
 	return (
-		<View>
-      {user ? (
-        <View>
-          <Text>{`Hello ${user.name}!`}</Text>
-          <Button
-            title="My account"
-            onPress={handleMyAccountClick}
-          />
-        </View>
-      ) : (
-        <View>
-          <Text>Welcome!</Text>
-          <Controller
-            name="name"
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => <TextInput {...field} />}
-          />
-          <Button title="Submit" onPress={handleSubmit(onSubmit)} />
-        </View>
-      )}
-		</View>
+		<ScreenStyles.Wrapper>
+      <ScreenStyles.Container>
+        {user ? (
+          <View>
+            <Text>{`Hello ${user.name}!`}</Text>
+            <Button
+              title="My account"
+              onPress={handleMyAccountClick}
+            />
+            <Button
+              title="Entries"
+              onPress={handleEntriesClick}
+            />
+          </View>
+        ) : (
+          <View>
+            <Text>Welcome!</Text>
+            <Controller
+              name="name"
+              control={control}
+              rules={{ required: true }}
+              render={({ field }) => <TextInput {...field} />}
+            />
+            <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+          </View>
+        )}
+      </ScreenStyles.Container>
+		</ScreenStyles.Wrapper>
 	);
 };
 

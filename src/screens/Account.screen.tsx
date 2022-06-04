@@ -1,11 +1,11 @@
-
 import { useAppSelector } from '@src/hooks';
+import { ScreenStyles } from '@src/styles';
 import { AppState } from '@store/store.types';
 import { userActions } from '@store/user';
 import { User } from '@store/user/user.types';
 import { useCallback } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Button, Text, TextInput, View } from 'react-native';
+import { Button, Text, TextInput } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 const AccountScreen = () => {
@@ -26,20 +26,22 @@ const AccountScreen = () => {
       name: data.name
     };
 
-    dispatch(userActions.setUser(user));
+    dispatch(userActions.set(user));
   }, []);
 
 	return (
-		<View>
-      <Text>Account</Text>
-      <Controller
-        name="name"
-        control={control}
-        rules={{ required: true }}
-        render={({ field }) => <TextInput {...field} />}
-      />
-      <Button title="Submit" onPress={handleSubmit(onSubmit)} />
-		</View>
+		<ScreenStyles.Wrapper>
+      <ScreenStyles.Container>
+        <Text>Account</Text>
+        <Controller
+          name="name"
+          control={control}
+          rules={{ required: true }}
+          render={({ field }) => <TextInput {...field} />}
+        />
+        <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+      </ScreenStyles.Container>
+		</ScreenStyles.Wrapper>
 	);
 };
 
