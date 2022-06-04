@@ -22,15 +22,14 @@ const HomeScreen = ({ navigation }: ScreenProps) => {
     }
   });
 
-  const onSubmit = useCallback((data) => {
-    console.log(data);
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onSubmit = useCallback((data: any) => {
     const user: User = {
       name: data.name
     };
 
     dispatch(userActions.set(user));
-  }, []);
+  }, [dispatch]);
 
   const handleMyAccountClick = useCallback(() => {
     navigation.navigate('Account');
@@ -47,11 +46,11 @@ const HomeScreen = ({ navigation }: ScreenProps) => {
           <View>
             <Text>{`Hello ${user.name}!`}</Text>
             <Button
-              title="My account"
+              title="Minha conta"
               onPress={handleMyAccountClick}
             />
             <Button
-              title="Entries"
+              title="Lançamentos"
               onPress={handleEntriesClick}
             />
           </View>

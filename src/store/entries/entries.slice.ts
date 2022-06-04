@@ -8,7 +8,9 @@ const entriesSlice = createSlice({
   initialState,
   reducers: {
     add: (state, action) => {
-      return [...state, action.payload];
+      const entry = action.payload;
+      entry.id = state.length;
+      return [...state, entry];
     }
   }
 });

@@ -19,15 +19,14 @@ const AccountScreen = () => {
     }
   });
 
-  const onSubmit = useCallback((data) => {
-    console.log(data);
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onSubmit = useCallback((data: any) => {
     const user: User = {
       name: data.name
     };
 
     dispatch(userActions.set(user));
-  }, []);
+  }, [dispatch]);
 
 	return (
 		<ScreenStyles.Wrapper>

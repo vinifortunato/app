@@ -1,83 +1,52 @@
 import { useAppSelector } from '@src/hooks';
 import { Entry } from '@store/entries/entries.types';
 import { AppState } from '@store/store.types';
-import { useCallback } from 'react';
-import { Button, Text, TextInput, View } from 'react-native';
-import { Controller, useForm } from 'react-hook-form';
+import { useCallback, useMemo, useState } from 'react';
+import { Button, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { entriesActions } from '@store/entries';
 import { ScreenStyles } from '../styles';
+import { ModalNewEntry } from '@src/components/modals';
 
 const EntriesScreen = () => {
   const dispatch = useDispatch();
 
+  const [modalNewEntryVisibility, setModalNewEntryVisibility] = useState(false);
+
   const entries: Array<Entry> = useAppSelector<Array<Entry>>((state: AppState) => state.entries);
 
-  const { handleSubmit, control } = useForm({
-    defaultValues: {
-      title: '',
-      amount: '',
-      type: 'revenue'
-    }
-  });
-
-  const onSubmit = useCallback((data) => {
-    console.log(data);
-
-    const entry: Entry = {
-      id: '0',
-      title: data.title,
-      type: data.type,
-      amount: data.amount
-    };
-
-    dispatch(entriesActions.add(entry));
-  }, []);
-
-  const entriesMap = entries.map((entry: Entry) => {
+  const entriesMap = useMemo(() => entries.map((entry: Entry) => {
     const key = `entry-${entry.id}`;
     return (
       <View key={key}>
         <Text>{entry.title}</Text>
       </View>
     );
-  });
+  }), [entries]);
 
-  const handleNewEntryClick = useCallback(() => {
-    console.log('aaa');
-  }, []);
+  const handleNewEntrySubmit = useCallback((entry: Entry) => {
+    dispatch(entriesActions.add(entry));
+  }, [dispatch]);
+
+  const toggleNewEntryModal = useCallback(() => {
+    setModalNewEntryVisibility(!modalNewEntryVisibility);
+  }, [modalNewEntryVisibility]);
 
 	return (
     <ScreenStyles.Wrapper>
       <ScreenStyles.Container>
         <View>
-          <Text>Entries</Text>
+          <Text>Lançamentos</Text>
+          <Button title="Novo Lançamento" onPress={toggleNewEntryModal} />
           <View>
             {entriesMap}
           </View>
-          <Button title="New entry" onPress={handleNewEntryClick} />
         </View>
-        <View>
-          <Controller
-            name="title"
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => <TextInput {...field} placeholder="title" />}
-          />
-          <Controller
-            name="amount"
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => <TextInput {...field} placeholder="amount" />}
-          />
-          <Controller
-            name="type"
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => <TextInput {...field} placeholder="type" />}
-          />
-          <Button title="Submit" onPress={handleSubmit(onSubmit)} />
-        </View>
+        <ModalNewEntry
+          onCancel={toggleNewEntryModal}
+          onSubmit={handleNewEntrySubmit}
+          visible={modalNewEntryVisibility}
+        />
       </ScreenStyles.Container>
     </ScreenStyles.Wrapper>
 	);
