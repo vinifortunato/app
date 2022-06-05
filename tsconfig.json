@@ -7,5 +7,6 @@
       "@store/*": ["./src/store/*"],
       "@src/*": ["./src/*"],
     },
-  }
+  },
+  "include": ["./src/types/*.d.ts", "**/*.ts", "**/*.tsx"],
 }

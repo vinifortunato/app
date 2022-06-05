@@ -36,9 +36,15 @@ const SplashScreen = ({ navigation }: ScreenProps) => {
       const entries: Array<Entry> = rawEntries.map((rawEntry): Entry => {
         return {
           amount: rawEntry.amount,
-          id: rawEntry.amount,
+          createdAt: rawEntry.createdAt,
+          date: rawEntry.date,
+          deletedAt: rawEntry.deletedAt,
+          id: rawEntry.id,
+          notes: rawEntry.notes,
+          status: rawEntry.status,
           title: rawEntry.title,
-          type: rawEntry.type
+          type: rawEntry.type,
+          updatedAt: rawEntry.updatedAt,
         };
       });
 

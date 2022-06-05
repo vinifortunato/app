@@ -22,16 +22,16 @@
 		"react",
 		"@typescript-eslint"
 	],
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  },
+	"settings": {
+		"react": {
+			"version": "detect"
+		}
+	},
 	"rules": {
 		"linebreak-style": "off",
 		"quotes": ["error", "single"],
 		"semi": ["error", "always"],
 		"react/react-in-jsx-scope": "off",
-    "no-console": "warn"
+    	"no-console": "warn"
 	}
 }
