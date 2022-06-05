@@ -27,7 +27,7 @@ const Navigation = () => {
           name="Account"
           component={AccountScreen}
           options={{
-            title: 'Minha conta'
+            title: 'Meus dados'
           }}
         />
         <Stack.Screen

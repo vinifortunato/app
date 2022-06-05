@@ -1,5 +1,6 @@
 
 
+import { DefaultTextInput } from '@src/components/inputs';
 import { useAppSelector } from '@src/hooks';
 import { ScreenStyles } from '@src/styles';
 import { AppState } from '@store/store.types';
@@ -7,9 +8,9 @@ import { userActions } from '@store/user';
 import { User } from '@store/user/user.types';
 import { useCallback } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Button, Text, TextInput, View } from 'react-native';
+import { Button, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { ScreenProps } from './Screen.types';
+import { ScreenProps } from '../types/screen.types';
 
 const HomeScreen = ({ navigation }: ScreenProps) => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const HomeScreen = ({ navigation }: ScreenProps) => {
 
   const { handleSubmit, control } = useForm({
     defaultValues: {
-      name: 'Vinicius',
+      name: '',
     }
   });
 
@@ -56,14 +57,25 @@ const HomeScreen = ({ navigation }: ScreenProps) => {
           </View>
         ) : (
           <View>
-            <Text>Olá, como devemos chamá-lo?</Text>
             <Controller
               name="name"
               control={control}
               rules={{ required: true }}
-              render={({ field }) => <TextInput {...field} />}
+              render={({ field }) => {
+                const { onChange, value } = field;
+                return (
+                  <DefaultTextInput
+                    editable={true}
+                    label="Olá, como devemos chamá-lo?"
+                    onChange={onChange}
+                    placeholder="Nome"
+                    testId="text-input-name"
+                    value={value}
+                  />
+                );
+              }}
             />
-            <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+            <Button title="Enviar" onPress={handleSubmit(onSubmit)} />
           </View>
         )}
       </ScreenStyles.Container>

@@ -1,7 +1,11 @@
 import { {{pascalCase name}}Props } from './{{pascalCase name}}.types';
 
-const {{pascalCase name}} = ({ fill = 'none', stroke = 'none' }: {{pascalCase name}}Props) => {
-  return <svg></svg>;
+const {{pascalCase name}} = ({ fill = 'none', stroke = 'none', testId = 'icon' }: {{pascalCase name}}Props) => {
+  return {
+    <svg data-testid={testId}>
+
+    </svg>
+  };
 };
 
 export default {{pascalCase name}};

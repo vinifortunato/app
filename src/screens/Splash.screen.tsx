@@ -7,7 +7,7 @@ import { User } from '@store/user/user.types';
 import { useCallback, useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { ScreenProps } from './Screen.types';
+import { ScreenProps } from '../types/screen.types';
 
 const SplashScreen = ({ navigation }: ScreenProps) => {
   const dispatch = useDispatch();

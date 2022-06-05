@@ -1,11 +1,11 @@
-import { ModalNewEntry } from '@src/components/modals';
+import { ModalNewEntry } from '@src/modals';
 import { useAppSelector } from '@src/hooks';
 import { arraysEqual } from '@src/utils';
 import { entriesActions } from '@store/entries';
 import { Entry } from '@store/entries/entries.types';
 import { AppState } from '@store/store.types';
 import { useCallback, useEffect, useState } from 'react';
-import { Button, Text } from 'react-native';
+import { Button } from 'react-native';
 import { useDispatch } from 'react-redux';
 import EntriesList from '../EntriesList';
 import * as Styles from './EntriesHandler.styles';
@@ -34,10 +34,10 @@ const EntriesHandler = () => {
     dispatch(entriesActions.add(entry));
     toggleNewEntryModal();
   }, [dispatch, toggleNewEntryModal]);
+
   return (
-    <Styles.Wrapper>
+    <Styles.Wrapper data-testid="entries-handler">
       <Styles.Header>
-        <Text>Lançamentos</Text>
         <Button title="Novo Lançamento" onPress={toggleNewEntryModal} />
       </Styles.Header>
       <EntriesList entries={filteredEntries} />
