@@ -85,7 +85,8 @@ const SplashScreen = ({ navigation }: ScreenProps) => {
     if (!isReady) {
       return;
     }
-    navigation.navigate('Home');
+
+    navigation.replace('Home');
   }, [isReady, navigation]);
 
 	return (

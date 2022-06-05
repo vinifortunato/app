@@ -19,7 +19,6 @@ const Navigation = () => {
           name="Home"
           component={HomeScreen}
           options={{
-            headerLeft: () => null,
             title: 'Visão Geral',
           }}
         />
