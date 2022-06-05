@@ -17,7 +17,8 @@
     "lint": "eslint ./src",
     "typecheck": "tsc --project tsconfig.json --noEmit",
     "codecheck": "yarn lint && yarn typecheck",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "plop": "plop --plopfile ./scripts/plop/plopfile.js"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "~1.17.3",
@@ -48,6 +49,7 @@
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.5.0",
     "husky": "^8.0.1",
+    "plop": "^3.1.0",
     "typescript": "~4.3.5"
   },
   "resolutions": {

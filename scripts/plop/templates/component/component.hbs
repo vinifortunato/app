@@ -1,0 +1,12 @@
+import { {{pascalCase name}}Props } from './{{pascalCase name}}.types';
+import * as Styles from './{{pascalCase name}}.styles';
+
+const {{pascalCase name}} = ({ testId = 'default' }: {{pascalCase name}}Props) => {
+  return (
+    <Styles.Wrapper data-testid={testId}>
+
+    </Styles.Wrapper>
+  );
+};
+
+export default {{pascalCase name}};

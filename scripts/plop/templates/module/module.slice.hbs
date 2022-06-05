@@ -1,0 +1,21 @@
+import { createSlice } from '@reduxjs/toolkit';
+import { {{pascalCase name}}State } from './{{camelCase name}}.types';
+
+const initialState: {{pascalCase name}}State = null;
+
+const {{camelCase name}}Slice = createSlice({
+  name: '{{camelCase name}}',
+  initialState,
+  reducers: {
+    set: (state, action) => {
+      return action.payload;
+    }
+  }
+});
+
+export const actions = {{camelCase name}}Slice.actions;
+export const reducer = {{camelCase name}}Slice.reducer;
+
+export default {{camelCase name}}Slice;
+
+
