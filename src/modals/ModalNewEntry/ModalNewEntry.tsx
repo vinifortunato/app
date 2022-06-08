@@ -49,7 +49,7 @@ const ModalNewEntry = ({ onCancel, onSubmit, visible = false }: ModalNewEntryPro
     >
       <Styles.Wrapper>
         <Styles.Container>
-          <Text>Novo Lançamento</Text>
+          <Styles.Title>Novo Lançamento</Styles.Title>
           <View>
             <Controller
               name="title"

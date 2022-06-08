@@ -25,3 +25,9 @@ export type Year = {
   label: string;
   months: Dictionary<Month>;
 }
+
+export type Balance = {
+  balance: number
+  earnings: number,
+  expenses: number,
+}

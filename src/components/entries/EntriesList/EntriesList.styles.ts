@@ -10,7 +10,7 @@ export const EntryWrapper = styled.View`
     flex-direction: row;
     justify-content: space-between;
     margin: 5px 0px;
-    padding: 10px;
+    padding: 20px 15px;
   `}
 `;
 
@@ -36,6 +36,7 @@ export const EntryTitle = styled.Text`
 
 export const IconEntryTypeAdapter = styled.View`
   display: flex;
+  height: 8px;
   margin-right: 10px;
   width: 8px;
 `;
@@ -63,10 +64,4 @@ export const EntryExpenseAmount = styled(EntryAmount)`
   ${({ theme }) => css`
     color: ${theme.colors.error};
   `}
-`;
-
-export const IconEntryStatusAdapter = styled.View`
-  display: flex;
-  margin-left: 10px;
-  width: 16px;
 `;

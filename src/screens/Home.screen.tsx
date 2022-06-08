@@ -1,6 +1,7 @@
 
 
 import { DefaultTextInput } from '@src/components/inputs';
+import ResumeHandler from '@src/components/ResumeHandler';
 import { useAppSelector } from '@src/hooks';
 import { ScreenStyles } from '@src/styles';
 import { AppState } from '@store/store.types';
@@ -8,7 +9,7 @@ import { userActions } from '@store/user';
 import { User } from '@store/user/user.types';
 import { useCallback } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Button, Text, View } from 'react-native';
+import { Button, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { ScreenProps } from '../types/screen.types';
 
@@ -44,17 +45,10 @@ const HomeScreen = ({ navigation }: ScreenProps) => {
 		<ScreenStyles.Wrapper>
       <ScreenStyles.Container>
         {user ? (
-          <View>
-            <Text>{`Olá ${user.name}!`}</Text>
-            <Button
-              title="Minha conta"
-              onPress={handleMyAccountClick}
-            />
-            <Button
-              title="Lançamentos"
-              onPress={handleEntriesClick}
-            />
-          </View>
+          <ResumeHandler
+            handleMyAccountClick={handleMyAccountClick}
+            handleEntriesClick={handleEntriesClick}
+          />
         ) : (
           <View>
             <Controller
@@ -66,9 +60,9 @@ const HomeScreen = ({ navigation }: ScreenProps) => {
                 return (
                   <DefaultTextInput
                     editable={true}
-                    label="Olá, como devemos chamá-lo?"
+                    label="Como devemos chamá-lo?"
                     onChange={onChange}
-                    placeholder="Nome"
+                    placeholder="Digite seu nome ou apelido"
                     testId="text-input-name"
                     value={value}
                   />

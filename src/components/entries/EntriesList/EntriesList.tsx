@@ -104,9 +104,6 @@ const EntriesList = ({ entries = [] }: EntriesListProps) => {
                   ) : (
                     <Styles.EntryExpenseAmount>{`- ${formattedAmount}`}</Styles.EntryExpenseAmount>
                   )}
-                  <Styles.IconEntryStatusAdapter>
-                    <Text>S</Text>
-                  </Styles.IconEntryStatusAdapter>
                 </Styles.EntryDetails>
               </Styles.EntryWrapper>
             );
