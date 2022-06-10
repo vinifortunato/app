@@ -1,14 +1,18 @@
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components/native';
-import { Navigation } from './components';
+import { StackNavigation } from './navigation';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import store from './store';
 import { defaultTheme } from './themes';
+import { BottomTabs } from './components';
 
 const App = () => {
 	return (
 		<Provider store={store}>
       <ThemeProvider theme={defaultTheme}>
-        <Navigation />
+        <SafeAreaProvider>
+          <StackNavigation />
+        </SafeAreaProvider>
       </ThemeProvider>
 		</Provider>
 	);

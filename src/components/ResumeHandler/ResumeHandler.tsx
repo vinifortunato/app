@@ -1,6 +1,6 @@
 import { ResumeHandlerProps } from './ResumeHandler.types';
 import * as Styles from './ResumeHandler.styles';
-import { Button, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { calculate, currency } from '@src/utils';
 import { Balance } from '@src/types/common.types';
 import { useAppSelector } from '@src/hooks';
@@ -8,7 +8,7 @@ import { User } from '@store/user/user.types';
 import { AppState } from '@store/store.types';
 import { Entry } from '@store/entries/entries.types';
 
-const ResumeHandler = ({ testId = 'default', handleMyAccountClick, handleEntriesClick }: ResumeHandlerProps) => {
+const ResumeHandler = ({ testId = 'default' }: ResumeHandlerProps) => {
   const user: User | null = useAppSelector<User | null>((state: AppState) => state.user);
   const entries: Array<Entry> = useAppSelector<Array<Entry>>((state: AppState) => state.entries);
 
@@ -43,17 +43,6 @@ const ResumeHandler = ({ testId = 'default', handleMyAccountClick, handleEntries
               </View>
             </View>
           </View>
-        </View>
-
-        <View>
-          <Button
-            title="Minha conta"
-            onPress={handleMyAccountClick}
-          />
-          <Button
-            title="Lançamentos"
-            onPress={handleEntriesClick}
-          />
         </View>
       </View>
     </Styles.Wrapper>

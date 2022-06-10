@@ -1,1 +1,2 @@
-export { default as Navigation } from './Navigation';
+export { default as BottomTabs } from './BottomTabs';
+export { default as OnboardingHandler } from './OnboardingHandler';

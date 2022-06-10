@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { AccountScreen, EntriesScreen, HomeScreen, SplashScreen } from '@src/screens';
 
-const Navigation = () => {
+const StackNavigation = () => {
   const Stack = createNativeStackNavigator();
 
   return (
@@ -41,4 +41,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default StackNavigation;
