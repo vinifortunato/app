@@ -1,39 +1,37 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { AccountScreen, EntriesScreen, HomeScreen } from '@src/screens';
 
-const StackNavigation = () => {
-  const Stack = createNativeStackNavigator();
+const BottomTabNavigator = () => {
+  const BottomTabNavigator = createBottomTabNavigator();
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
+      <BottomTabNavigator.Navigator>
+        <BottomTabNavigator.Screen
           name="Home"
           component={HomeScreen}
           options={{
             title: 'Visão Geral',
           }}
         />
-        <Stack.Screen
+        <BottomTabNavigator.Screen
           name="Account"
           component={AccountScreen}
           options={{
             title: 'Meus dados',
-            headerBackTitle: ''
           }}
         />
-        <Stack.Screen
+        <BottomTabNavigator.Screen
           name="Entries"
           component={EntriesScreen}
           options={{
             title: 'Lançamentos',
-            headerBackTitle: ''
           }}
         />
-      </Stack.Navigator>
+      </BottomTabNavigator.Navigator>
     </NavigationContainer>
   );
 };
 
-export default StackNavigation;
+export default BottomTabNavigator;

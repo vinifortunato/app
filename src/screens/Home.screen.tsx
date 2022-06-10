@@ -1,4 +1,4 @@
-import { BottomTabs, OnboardingHandler, ResumeHandler } from '@src/components';
+import { OnboardingHandler, ResumeHandler } from '@src/components';
 import { useAppSelector } from '@src/hooks';
 import { ScreenStyles } from '@src/styles';
 import { AppState } from '@store/store.types';
@@ -16,7 +16,6 @@ const HomeScreen = () => {
           <OnboardingHandler />
         )}
       </ScreenStyles.Container>
-      <BottomTabs />
     </ScreenStyles.Wrapper>
   );
 };

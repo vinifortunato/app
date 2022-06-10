@@ -1,18 +1,34 @@
-import { ScreenStyles } from '@src/styles';
-import { dataStorage } from '@src/utils';
-import { entriesActions } from '@store/entries';
-import { Entry } from '@store/entries/entries.types';
-import { userActions } from '@store/user';
-import { User } from '@store/user/user.types';
-import { useCallback, useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { SplashHandlerProps } from './SplashHandler.types';
+import * as Styles from './SplashHandler.styles';
+import { Animated, Text } from 'react-native';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { ScreenProps } from '../types/screen.types';
+import { User } from '@store/user/user.types';
+import { userActions } from '@store/user';
+import { entriesActions } from '@store/entries';
+import { dataStorage } from '@src/utils';
+import { Entry } from '@store/entries/entries.types';
 
-const SplashScreen = ({ navigation }: ScreenProps) => {
+const SplashHandler = ({ testId = 'default' }: SplashHandlerProps) => {
   const dispatch = useDispatch();
 
+  const opacity = useRef(new Animated.Value(1)).current;
+
   const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    if (!isReady) {
+      return;
+    }
+    Animated.timing(
+      opacity,
+      {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }
+    ).start();
+  }, [opacity, isReady]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const assemblyUser = useCallback((rawUser: any) => {
@@ -68,7 +84,7 @@ const SplashScreen = ({ navigation }: ScreenProps) => {
         rawEntries && assemblyEntries(rawEntries);
       }
 
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise(resolve => setTimeout(resolve, 3000));
     } catch (e) {
       // eslint-disable-next-line no-console
       console.warn('Can\'t read data from dataStorage');
@@ -81,23 +97,15 @@ const SplashScreen = ({ navigation }: ScreenProps) => {
     initialize();
   }, [initialize]);
 
-  useEffect(() => {
-    if (!isReady) {
-      return;
-    }
-
-    navigation.replace('Home');
-  }, [isReady, navigation]);
-
-	return (
-		<ScreenStyles.Wrapper>
-      <ScreenStyles.Container>
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text>App 👋</Text>
-        </View>
-      </ScreenStyles.Container>
-		</ScreenStyles.Wrapper>
-	);
+  return (
+    <Styles.Wrapper
+      data-testid={testId}
+      style={{ opacity }}
+      pointerEvents={isReady ? 'none' : 'auto'}
+    >
+      <Text>App 👋</Text>
+    </Styles.Wrapper>
+  );
 };
 
-export default SplashScreen;
+export default SplashHandler;
