@@ -7,6 +7,7 @@ import { useAppSelector } from '@src/hooks';
 import { User } from '@store/user/user.types';
 import { AppState } from '@store/store.types';
 import { Entry } from '@store/entries/entries.types';
+import { ScreenStyles } from '@src/styles';
 
 const ResumeHandler = ({ testId = 'default' }: ResumeHandlerProps) => {
   const user: User | null = useAppSelector<User | null>((state: AppState) => state.user);
@@ -17,7 +18,7 @@ const ResumeHandler = ({ testId = 'default' }: ResumeHandlerProps) => {
   return (
     <Styles.Wrapper data-testid={testId}>
       <View>
-        <View>
+        <ScreenStyles.Box>
           <Text>{`Boa noite, ${user?.name}!`}</Text>
           <View>
             <Text>Saldo geral</Text>
@@ -31,8 +32,8 @@ const ResumeHandler = ({ testId = 'default' }: ResumeHandlerProps) => {
             <Text>Despesa geral</Text>
             <Text>{currency({ value: balance.expenses })}</Text>
           </View>
-        </View>
-        <View>
+        </ScreenStyles.Box>
+        <ScreenStyles.Box>
           <Text>Minhas contas</Text>
           <View>
             <View>
@@ -43,7 +44,7 @@ const ResumeHandler = ({ testId = 'default' }: ResumeHandlerProps) => {
               </View>
             </View>
           </View>
-        </View>
+        </ScreenStyles.Box>
       </View>
     </Styles.Wrapper>
   );

@@ -1,5 +1,4 @@
-import { BottomTabs, OnboardingHandler } from '@src/components';
-import ResumeHandler from '@src/components/ResumeHandler';
+import { BottomTabs, OnboardingHandler, ResumeHandler } from '@src/components';
 import { useAppSelector } from '@src/hooks';
 import { ScreenStyles } from '@src/styles';
 import { AppState } from '@store/store.types';

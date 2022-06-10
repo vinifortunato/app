@@ -4,7 +4,6 @@ import { StackNavigation } from './navigation';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import store from './store';
 import { defaultTheme } from './themes';
-import { BottomTabs } from './components';
 
 const App = () => {
 	return (
