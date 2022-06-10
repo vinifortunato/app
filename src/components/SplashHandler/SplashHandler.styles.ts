@@ -2,9 +2,9 @@ import { Animated } from 'react-native';
 import styled, { css } from 'styled-components/native';
 
 export const Wrapper =  styled(Animated.View)`
-  ${() => css`
+  ${({ theme }) => css`
     align-items: center;
-    background-color: blue;
+    background-color: ${theme.colors.primary};
     bottom: 0px;
     display: flex;
     justify-content: center;
@@ -12,8 +12,15 @@ export const Wrapper =  styled(Animated.View)`
     position: absolute;
     right: 0px;
     top: 0px;
-    z-index: 1;
+    z-index: ${theme.layers.awaysOnTop};
     opacity: 1;
     pointer-events: none;
+  `}
+`;
+
+export const Title =  styled.Text`
+  ${({ theme }) => css`
+    color: ${theme.colors.white};
+    font-size: ${theme.font.sizes.lg};
   `}
 `;

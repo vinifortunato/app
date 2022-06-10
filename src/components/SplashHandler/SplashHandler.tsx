@@ -1,6 +1,6 @@
 import { SplashHandlerProps } from './SplashHandler.types';
 import * as Styles from './SplashHandler.styles';
-import { Animated, Text } from 'react-native';
+import { Animated } from 'react-native';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { User } from '@store/user/user.types';
@@ -103,7 +103,7 @@ const SplashHandler = ({ testId = 'default' }: SplashHandlerProps) => {
       style={{ opacity }}
       pointerEvents={isReady ? 'none' : 'auto'}
     >
-      <Text>App 👋</Text>
+      <Styles.Title>App</Styles.Title>
     </Styles.Wrapper>
   );
 };
