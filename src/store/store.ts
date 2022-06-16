@@ -13,7 +13,7 @@ const store = configureStore({
 const handleChange = () => {
   const state = store.getState();
   // eslint-disable-next-line no-console
-  console.log('store', state);
+  //console.log('store', state);
 
   dataStorage.save(state);
 };

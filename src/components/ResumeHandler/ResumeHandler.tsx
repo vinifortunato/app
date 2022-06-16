@@ -8,6 +8,7 @@ import { User } from '@store/user/user.types';
 import { AppState } from '@store/store.types';
 import { Entry } from '@store/entries/entries.types';
 import { ScreenStyles } from '@src/styles';
+import DateFilter from '../DateFilter';
 
 const ResumeHandler = ({ testId = 'default' }: ResumeHandlerProps) => {
   const user: User | null = useAppSelector<User | null>((state: AppState) => state.user);
@@ -17,6 +18,9 @@ const ResumeHandler = ({ testId = 'default' }: ResumeHandlerProps) => {
 
   return (
     <Styles.Wrapper data-testid={testId}>
+      <View>
+        <DateFilter />
+      </View>
       <View>
         <ScreenStyles.Box>
           <Text>{`Boa noite, ${user?.name}!`}</Text>
