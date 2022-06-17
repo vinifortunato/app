@@ -1,7 +1,8 @@
-import { Dictionary } from '@src/types/common.types';
+import { AppDate, Dictionary } from '@src/types/common.types';
 
 export type DateFilterProps = {
-  onChange?: (month: number, year: number) => void;
+  defaultDate?: AppDate;
+  onChange?: (appDate: AppDate) => void;
   testId?: string;
 };
 

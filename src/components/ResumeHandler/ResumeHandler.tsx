@@ -1,14 +1,13 @@
 import { ResumeHandlerProps } from './ResumeHandler.types';
 import * as Styles from './ResumeHandler.styles';
 import { Text, View } from 'react-native';
-import { calculate, currency } from '@src/utils';
+import { calculate, currency, dateUtils, splitName } from '@src/utils';
 import { Balance } from '@src/types/common.types';
 import { useAppSelector } from '@src/hooks';
 import { User } from '@store/user/user.types';
 import { AppState } from '@store/store.types';
 import { Entry } from '@store/entries/entries.types';
 import { ScreenStyles } from '@src/styles';
-import DateFilter from '../DateFilter';
 
 const ResumeHandler = ({ testId = 'default' }: ResumeHandlerProps) => {
   const user: User | null = useAppSelector<User | null>((state: AppState) => state.user);
@@ -19,11 +18,8 @@ const ResumeHandler = ({ testId = 'default' }: ResumeHandlerProps) => {
   return (
     <Styles.Wrapper data-testid={testId}>
       <View>
-        <DateFilter />
-      </View>
-      <View>
         <ScreenStyles.Box>
-          <Text>{`Boa noite, ${user?.name}!`}</Text>
+          <Text>{`${dateUtils.greet()}, ${user ? splitName({ fullName: user.name }).first : 'Usuário'}!`}</Text>
           <View>
             <Text>Saldo geral</Text>
             <Text>{currency({ value: balance.balance })}</Text>

@@ -1,8 +1,8 @@
-import { Day, Dictionary, Month, Year } from '@src/types/common.types';
+import { Dictionary } from '@src/types/common.types';
 import { Entry, EntryTypes } from '@store/entries/entries.types';
 import { useCallback, useMemo } from 'react';
 import { useTheme } from 'styled-components/native';
-import { EntriesListProps } from './EntriesList.types';
+import { EntriesListProps, EntryListDay, EntryListMonth, EntryListYear } from './EntriesList.types';
 import * as Styles from './EntriesList.styles';
 import { currency } from '@src/utils';
 import { IconEntryType } from '@src/icons';
@@ -23,7 +23,7 @@ const EntriesList = ({ entries = [] }: EntriesListProps) => {
   }, [theme]);
 
   const assemblyEntries = (entries: Array<Entry>) => {
-    const assembledEntries: Dictionary<Year> = {};
+    const assembledEntries: Dictionary<EntryListYear> = {};
 
     entries.forEach((entry: Entry) => {
       const parsedDate = Number(entry.date);
@@ -38,7 +38,7 @@ const EntriesList = ({ entries = [] }: EntriesListProps) => {
           months: {},
         };
       }
-      const year: Year = assembledEntries[yearKey];
+      const year: EntryListYear = assembledEntries[yearKey];
 
       // Month
       const normalizedMonth = (date.getUTCMonth() + 1).toString();
@@ -50,7 +50,7 @@ const EntriesList = ({ entries = [] }: EntriesListProps) => {
           days: {}
         };
       }
-      const month: Month = year.months[monthKey];
+      const month: EntryListMonth = year.months[monthKey];
 
       // Day
       const normalizedDay = date.getUTCDate().toString();
@@ -62,7 +62,7 @@ const EntriesList = ({ entries = [] }: EntriesListProps) => {
           entries: []
         };
       }
-      const day: Day = month.days[dayKey];
+      const day: EntryListDay = month.days[dayKey];
 
       // Entry
       day.entries.push(entry);
@@ -72,18 +72,18 @@ const EntriesList = ({ entries = [] }: EntriesListProps) => {
   };
 
   const listMap = useMemo(() => {
-    const assembledEntries: Dictionary<Year> = assemblyEntries(entries);
+    const assembledEntries: Dictionary<EntryListYear> = assemblyEntries(entries);
 
     return Object.keys(assembledEntries).map((yearKey: string) => {
-      const year: Year = assembledEntries[yearKey];
+      const year: EntryListYear = assembledEntries[yearKey];
 
-      const months: Dictionary<Month> = year.months;
+      const months: Dictionary<EntryListMonth> = year.months;
       const monthsMap = Object.keys(months).map((monthKey: string) => {
-        const month: Month = months[monthKey];
+        const month: EntryListMonth = months[monthKey];
 
-        const days: Dictionary<Day> = month.days;
+        const days: Dictionary<EntryListDay> = month.days;
         const daysMap = Object.keys(days).map((dayKey: string) => {
-          const day: Day = days[dayKey];
+          const day: EntryListDay = days[dayKey];
 
           const entries: Array<Entry> = day.entries;
           const entriesMap = entries.map((entry: Entry) => {

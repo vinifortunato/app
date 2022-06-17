@@ -1,35 +1,15 @@
 import { DateFilterItem, DateFilterState, DateFilterProps } from './DateFilter.types';
 import * as Styles from './DateFilter.styles';
-import { Dimensions, FlatList, Text, View } from 'react-native';
+import { Dimensions, FlatList, Text } from 'react-native';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { AppDate } from '@src/types/common.types';
 
-const DateFilter = ({ testId = 'date-filter' }: DateFilterProps) => {
+const DateFilter = ({ defaultDate = { day: 1, month: 1, year: 2022 }, onChange, testId = 'date-filter' }: DateFilterProps) => {
   const [state, setState] = useState<DateFilterState>({ data: [], flags: { ready: false }, index: 3 });
 
   const flatListRef = useRef<FlatList>(null);
 
-  const year = 2022;
-  const month = 1;
   const ITEM_WIDTH = 130;
-
-  /*
-  const monthNames = useMemo(() => {
-    return {
-      1: 'Janeiro',
-      2: 'Fevereiro',
-      3: 'Março',
-      4: 'Abril',
-      5: 'Maio',
-      6: 'Junho',
-      7: 'Julho',
-      8: 'Agosto',
-      9: 'Setembro',
-      10: 'Outubro',
-      11: 'Novembro',
-      12: 'Dezembro',
-    };
-  }, []);
-  */
 
   const getPrevOptions = useCallback((option, amount): Array<DateFilterItem> => {
     const prevOptions = [];
@@ -83,6 +63,7 @@ const DateFilter = ({ testId = 'date-filter' }: DateFilterProps) => {
 
     // console.log('Init');
 
+    const { month, year } = defaultDate;
     const initialItem = { id: `${month}${year}`, month, year };
     let tempData = [initialItem];
     // Prev
@@ -94,7 +75,7 @@ const DateFilter = ({ testId = 'date-filter' }: DateFilterProps) => {
     tempData = [...tempData, ...nextOptions];
 
     setState({ ...state, data: tempData, flags: { ready: true } });
-  }, [getNextOptions, getPrevOptions, state]);
+  }, [defaultDate, getNextOptions, getPrevOptions, state]);
 
   // Position update
   useEffect(() => {
@@ -124,24 +105,6 @@ const DateFilter = ({ testId = 'date-filter' }: DateFilterProps) => {
     }
   }, [getNextOptions, getPrevOptions, state]);
 
-  const handlePrevButtonClick = useCallback(() => {
-    const prevIndex = state.index - 1;
-    if (prevIndex < 0) {
-      return;
-    }
-    setState({ ...state, index: prevIndex });
-    flatListRef.current?.scrollToIndex({ animated: true, index: prevIndex, viewPosition: 0.5 });
-  }, [state]);
-
-  const handleNextButtonClick = useCallback(() => {
-    const nextIndex = state.index + 1;
-    if (nextIndex > state.data.length - 1) {
-      return;
-    }
-    setState({ ...state, index: nextIndex });
-    flatListRef.current?.scrollToIndex({ animated: true, index: nextIndex, viewPosition: 0.5 });
-  }, [state]);
-
   const handleScroll = useCallback((event) => {
     if (!state.flags.ready) {
       return;
@@ -152,9 +115,16 @@ const DateFilter = ({ testId = 'date-filter' }: DateFilterProps) => {
       return;
     }
 
-    // console.log('index', index);
+    const item = state.data[index];
+    const appDate: AppDate = {
+      day: 1,
+      month: item.month,
+      year: item.year
+    };
+    onChange && onChange(appDate);
+
     setState({ ...state, index, flags: { ...state.flags, positioning: false } });
-  }, [state]);
+  }, [onChange, state]);
 
   const handleGetItemLayout = useCallback((data, index) => {
     return { length: ITEM_WIDTH, offset: ITEM_WIDTH * index, index };
@@ -208,10 +178,6 @@ const DateFilter = ({ testId = 'date-filter' }: DateFilterProps) => {
           }}
         />
       </Styles.Wrapper>
-      <View>
-        <Styles.NavButton title="<" onPress={handlePrevButtonClick} />
-        <Styles.NavButton title=">" onPress={handleNextButtonClick} />
-      </View>
     </>
   );
 };

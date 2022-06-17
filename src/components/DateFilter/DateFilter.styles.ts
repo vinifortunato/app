@@ -2,8 +2,11 @@ import styled, { css } from 'styled-components/native';
 import { DateFilterItemStyleProps } from './DateFilter.types';
 
 export const Wrapper = styled.View`
-  display: flex;
-  flex-direction: row;
+  ${({ theme }) => css`
+    background-color: ${theme.colors.white};
+    display: flex;
+    flex-direction: row;
+  `}
 `;
 
 export const Items = styled.FlatList`

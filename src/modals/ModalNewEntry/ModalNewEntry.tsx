@@ -4,8 +4,8 @@ import { Controller, useForm } from 'react-hook-form';
 import { Button, Modal as NativeModal, Pressable, Text, View } from 'react-native';
 import { ModalNewEntryProps } from './ModalNewEntry.types';
 import * as Styles from './ModalNewEntry.styles';
-import { dateToTimestamp } from '@src/utils';
 import { DefaultTextInput } from '@src/components/inputs';
+import { dateUtils } from '@src/utils';
 
 const ModalNewEntry = ({ onCancel, onSubmit, visible = false }: ModalNewEntryProps) => {
   const { handleSubmit, control } = useForm({
@@ -21,7 +21,7 @@ const ModalNewEntry = ({ onCancel, onSubmit, visible = false }: ModalNewEntryPro
   });
 
   const handleSubmitEntry = useCallback(({ amount, date: rawDate, notes, status, title, type }) => {
-    const date = dateToTimestamp({ rawDate }).toString();
+    const date = dateUtils.dateToTimestamp(rawDate).toString();
     const entry: Entry = {
       amount,
       createdAt: '',
