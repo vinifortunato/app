@@ -16,17 +16,17 @@ const BottomTabNavigator = () => {
           }}
         />
         <BottomTabNavigator.Screen
-          name="Account"
-          component={AccountScreen}
-          options={{
-            title: 'Meus dados',
-          }}
-        />
-        <BottomTabNavigator.Screen
           name="Entries"
           component={EntriesScreen}
           options={{
             title: 'Lançamentos',
+          }}
+        />
+        <BottomTabNavigator.Screen
+          name="Account"
+          component={AccountScreen}
+          options={{
+            title: 'Meus dados',
           }}
         />
       </BottomTabNavigator.Navigator>
