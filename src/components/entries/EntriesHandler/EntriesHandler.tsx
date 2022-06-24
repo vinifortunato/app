@@ -9,9 +9,9 @@ import { AppDate } from '@src/types/common.types';
 import { dateUtils } from '@src/utils';
 
 const EntriesHandler = () => {
-  const [filter, setFilter] = useState<AppDate>(dateUtils.today());
-
   const entries: Array<Entry> = useAppSelector<Array<Entry>>((state: AppState) => state.entries);
+
+  const [filter, setFilter] = useState<AppDate>(dateUtils.today());
   const [filteredEntries, setFilteredEntries] = useState<Array<Entry>>([]);
 
   const filterEntriesByMonthAndYear = useCallback((entries: Array<Entry>, appDate: AppDate) => {

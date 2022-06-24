@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { AccountScreen, EntriesScreen, HomeScreen } from '@src/screens';
+import { EntriesScreen, HomeScreen } from '@src/screens';
 
 const BottomTabNavigator = () => {
   const BottomTabNavigator = createBottomTabNavigator();
@@ -20,13 +20,6 @@ const BottomTabNavigator = () => {
           component={EntriesScreen}
           options={{
             title: 'Lançamentos',
-          }}
-        />
-        <BottomTabNavigator.Screen
-          name="Account"
-          component={AccountScreen}
-          options={{
-            title: 'Meus dados',
           }}
         />
       </BottomTabNavigator.Navigator>

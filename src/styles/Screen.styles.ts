@@ -20,10 +20,27 @@ const Box = styled.View`
   border-radius: 3px;
 `;
 
+const ModalWrapper = styled.View`
+  margin: 0px 10px 0px 10px;
+`;
+
+const ModalCloseTab = styled.Pressable`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 5px;
+  background-color: lightgray;
+  border-radius: 5px;
+  width: 25%;
+  margin: 20px auto 20px auto;
+`;
+
 const Styles = {
-  Wrapper,
+  Box,
   Container,
-  Box
+  ModalCloseTab,
+  ModalWrapper,
+  Wrapper,
 };
 
 export default Styles;

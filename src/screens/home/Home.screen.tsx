@@ -1,14 +1,12 @@
-import { OnboardingHandler, ResumeHandler } from '@src/components';
-import { useAppSelector } from '@src/hooks';
-import { ScreenStyles } from '@src/styles';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ScreenProps } from '@src/types/screen.types';
-import { AppState } from '@store/store.types';
-import { User } from '@store/user/user.types';
 import { useCallback, useLayoutEffect } from 'react';
 import { Button } from 'react-native';
+import AccountScreen from './Account.screen';
+import ResumeScreen from './Resume.screen';
 
 const HomeScreen = ({ navigation }: ScreenProps) => {
-  const user: User | null = useAppSelector<User| null>((state: AppState) => state.user);
+  const Stack = createNativeStackNavigator();
 
   const handleAccountButtonClick = useCallback(() => {
     navigation.navigate('Account');
@@ -23,15 +21,18 @@ const HomeScreen = ({ navigation }: ScreenProps) => {
   }, [handleAccountButtonClick, navigation]);
 
 	return (
-		<ScreenStyles.Wrapper>
-      <ScreenStyles.Container>
-        {user ? (
-          <ResumeHandler />
-        ) : (
-          <OnboardingHandler />
-        )}
-      </ScreenStyles.Container>
-    </ScreenStyles.Wrapper>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen
+        name="Resume"
+        component={ResumeScreen}
+      />
+      <Stack.Group screenOptions={{ presentation: 'modal' }}>
+        <Stack.Screen
+          name="Account"
+          component={AccountScreen}
+        />
+      </Stack.Group>
+    </Stack.Navigator>
   );
 };
 
