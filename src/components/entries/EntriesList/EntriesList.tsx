@@ -88,7 +88,7 @@ const EntriesList = ({ entries = [] }: EntriesListProps) => {
           const entries: Array<Entry> = day.entries;
           const entriesMap = entries.map((entry: Entry) => {
             const id = `entry-${entry.id}`;
-            const formattedAmount = currency({ value: entry.amount });
+            const formattedAmount = currency({ value: entry.amount || 0 });
 
             return (
               <Styles.EntryWrapper key={id}>

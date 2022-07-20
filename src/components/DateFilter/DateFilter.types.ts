@@ -12,12 +12,20 @@ export type DateFilterItem = {
   year: number;
 };
 
+export type DateFilterSettings = {
+  itemsPerRow: number;
+  itemWidth: number;
+  wrapperWidth: number;
+};
+
 export type DateFilterState = {
   data: Array<DateFilterItem>;
   flags: Dictionary<boolean>;
   index: number;
+  settings: DateFilterSettings;
 };
 
 export type DateFilterItemStyleProps = {
   isCurrent?: boolean;
+  itemWidth?: number;
 };

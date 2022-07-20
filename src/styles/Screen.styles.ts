@@ -21,7 +21,13 @@ const Box = styled.View`
 `;
 
 const ModalWrapper = styled.View`
-  margin: 0px 10px 0px 10px;
+  margin: 0px auto;
+  max-width: 1200px;
+  width: 100%;
+`;
+
+const ModalContainer = styled.View`
+  padding: 0px 10px;
 `;
 
 const ModalCloseTab = styled.Pressable`
@@ -38,6 +44,7 @@ const ModalCloseTab = styled.Pressable`
 const Styles = {
   Box,
   Container,
+  ModalContainer,
   ModalCloseTab,
   ModalWrapper,
   Wrapper,

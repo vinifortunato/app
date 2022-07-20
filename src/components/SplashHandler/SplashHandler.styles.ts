@@ -7,6 +7,8 @@ export const Wrapper =  styled(Animated.View)`
     background-color: ${theme.colors.primary};
     bottom: 0px;
     display: flex;
+    flex: 1;
+    height: 100%;
     justify-content: center;
     left: 0px;
     position: absolute;

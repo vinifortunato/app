@@ -84,7 +84,7 @@ const SplashHandler = ({ testId = 'default' }: SplashHandlerProps) => {
         rawEntries && assemblyEntries(rawEntries);
       }
 
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      await new Promise(resolve => setTimeout(resolve, 1000));
     } catch (e) {
       // eslint-disable-next-line no-console
       console.warn('Can\'t read data from dataStorage');

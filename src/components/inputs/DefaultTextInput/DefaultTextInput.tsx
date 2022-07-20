@@ -5,6 +5,7 @@ const DefaultTextInput = ({
   editable = true,
   label = 'Label',
   onChange,
+  onFocus,
   placeholder = '',
   testId = 'default-text-input',
   value,
@@ -16,6 +17,7 @@ const DefaultTextInput = ({
         data-testid={testId}
         editable={editable}
         onChangeText={onChange}
+        onFocus={onFocus}
         placeholder={placeholder}
         value={value}
       />

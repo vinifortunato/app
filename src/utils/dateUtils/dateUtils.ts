@@ -1,5 +1,12 @@
 import { AppDate } from '@src/types/common.types';
 
+const appDateToString = (appDate: AppDate): string => {
+  const day = appDate.day.toString();
+  const month = appDate.month.toString();
+  const year = appDate.year.toString();
+  return day.padStart(2, '0') + '/' + month.padStart(2, '0') + '/' + year;
+};
+
 const dateToTimestamp = (rawDate: string): number => {
   const parsed = rawDate.split('/');
 
@@ -42,7 +49,6 @@ const timestampToAppDate = (timestamp: string): AppDate => {
 
 const today = (): AppDate => {
   const today = new Date();
-
   return {
     day: today.getUTCDate(),
     month: today.getUTCMonth() + 1,
@@ -51,6 +57,7 @@ const today = (): AppDate => {
 };
 
 const dateUtils = {
+  appDateToString,
   dateToTimestamp,
   greet,
   timestampToAppDate,

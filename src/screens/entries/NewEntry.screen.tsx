@@ -1,22 +1,30 @@
+import { DefaultDatePicker } from '@src/components';
 import { DefaultTextInput } from '@src/components/inputs';
 import { ScreenStyles } from '@src/styles';
 import { ScreenProps } from '@src/types/screen.types';
 import { dateUtils } from '@src/utils';
 import { entriesActions } from '@store/entries';
 import { Entry, EntryStatus, EntryTypes } from '@store/entries/entries.types';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Button, View } from 'react-native';
+import { Button } from 'react-native';
+import { formatWithMask, Masks } from 'react-native-mask-input';
 import { useDispatch } from 'react-redux';
 
 const NewEntryScreen = ({ navigation }: ScreenProps) => {
   const dispatch = useDispatch();
 
+  const today = dateUtils.today();
+
+  const currencyFormatOptions = useMemo(() => ({
+      mask: Masks.BRL_CURRENCY,
+  }), []);
+
   const { handleSubmit, control } = useForm({
     defaultValues: {
       amount: '',
       company: '',
-      date: '05/05/2022',
+      date: dateUtils.appDateToString(today),
       notes: '',
       status: EntryStatus.PAID,
       title: '',
@@ -24,22 +32,23 @@ const NewEntryScreen = ({ navigation }: ScreenProps) => {
     }
   });
 
-  const handleSubmitEntry = useCallback(({ amount, date: rawDate, notes, status, title, type }) => {
-    const date = dateUtils.dateToTimestamp(rawDate).toString();
-    const entry: Entry = {
-      amount,
-      createdAt: '',
-      date,
-      id: '0',
-      notes,
-      status,
-      title,
-      type,
-      updatedAt: '',
-    };
+  const handleSubmitEntry = useCallback(({ amount: rawAmount, date: rawDate, notes: rawNotes, status: rawStatus, title: rawTitle, type: rawType }) => {
+      const { unmasked: unmaskedAmount } = formatWithMask({ ...currencyFormatOptions, text: rawAmount || '0' });
+      const date = dateUtils.dateToTimestamp(rawDate).toString();
+      const entry: Entry = {
+        amount: unmaskedAmount,
+        createdAt: '',
+        date: date,
+        id: '0',
+        notes: rawNotes || '',
+        status: rawStatus || EntryStatus.PAID,
+        title: rawTitle || '',
+        type: rawType || EntryTypes.REVENUE,
+        updatedAt: '',
+      };
 
-    dispatch(entriesActions.add(entry));
-  }, [dispatch]);
+      dispatch(entriesActions.add(entry));
+  }, [dispatch, currencyFormatOptions]);
 
   const handleOnCancel = useCallback(() => {
     navigation.goBack();
@@ -48,16 +57,14 @@ const NewEntryScreen = ({ navigation }: ScreenProps) => {
   return (
     <ScreenStyles.ModalWrapper>
       <ScreenStyles.ModalCloseTab onPress={handleOnCancel} />
-      <View>
+      <ScreenStyles.ModalContainer>
         <Controller
           name="title"
           control={control}
-          rules={{ required: true }}
           render={({ field }) => {
             const { onChange, value } = field;
             return (
               <DefaultTextInput
-                editable={true}
                 label="Título"
                 onChange={onChange}
                 placeholder="Título"
@@ -70,17 +77,18 @@ const NewEntryScreen = ({ navigation }: ScreenProps) => {
         <Controller
           name="amount"
           control={control}
-          rules={{ required: true }}
+          rules={{ required: false }}
           render={({ field }) => {
             const { onChange, value } = field;
+            const { masked } = formatWithMask({ ...currencyFormatOptions, text: `${value}` });
+
             return (
               <DefaultTextInput
-                editable={true}
                 label="Valor"
                 onChange={onChange}
                 placeholder="Valor"
                 testId="text-input-value"
-                value={value}
+                value={masked}
               />
             );
           }}
@@ -88,16 +96,13 @@ const NewEntryScreen = ({ navigation }: ScreenProps) => {
         <Controller
           name="date"
           control={control}
-          rules={{ required: true }}
+          rules={{ required: false }}
           render={({ field }) => {
             const { onChange, value } = field;
             return (
-              <DefaultTextInput
-                editable={true}
+              <DefaultDatePicker
                 label="Data"
                 onChange={onChange}
-                placeholder="Data"
-                testId="text-input-date"
                 value={value}
               />
             );
@@ -106,12 +111,11 @@ const NewEntryScreen = ({ navigation }: ScreenProps) => {
         <Controller
           name="status"
           control={control}
-          rules={{ required: true }}
+          rules={{ required: false }}
           render={({ field }) => {
             const { onChange, value } = field;
             return (
               <DefaultTextInput
-                editable={true}
                 label="Estado"
                 onChange={onChange}
                 placeholder="Estado"
@@ -124,12 +128,11 @@ const NewEntryScreen = ({ navigation }: ScreenProps) => {
         <Controller
           name="type"
           control={control}
-          rules={{ required: true }}
+          rules={{ required: false }}
           render={({ field }) => {
             const { onChange, value } = field;
             return (
               <DefaultTextInput
-                editable={true}
                 label="Tipo"
                 onChange={onChange}
                 placeholder="Tipo"
@@ -142,12 +145,11 @@ const NewEntryScreen = ({ navigation }: ScreenProps) => {
         <Controller
           name="notes"
           control={control}
-          rules={{ required: true }}
+          rules={{ required: false }}
           render={({ field }) => {
             const { onChange, value } = field;
             return (
               <DefaultTextInput
-                editable={true}
                 label="Observações"
                 onChange={onChange}
                 placeholder="Observações"
@@ -158,7 +160,7 @@ const NewEntryScreen = ({ navigation }: ScreenProps) => {
           }}
         />
         <Button title="Submit" onPress={handleSubmit(handleSubmitEntry)} />
-      </View>
+      </ScreenStyles.ModalContainer>
     </ScreenStyles.ModalWrapper>
   );
 };

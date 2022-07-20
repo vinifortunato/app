@@ -7,7 +7,11 @@ const BottomTabNavigator = () => {
 
   return (
     <NavigationContainer>
-      <BottomTabNavigator.Navigator>
+      <BottomTabNavigator.Navigator
+        screenOptions={{
+          tabBarIconStyle: { marginTop: 0 },
+        }}
+      >
         <BottomTabNavigator.Screen
           name="Home"
           component={HomeScreen}
